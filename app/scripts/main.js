@@ -1,37 +1,36 @@
 var $ = require('jquery');
 var row = 6;
 var column = 7;
+// color red 1
+// color blue 2
 
 function initBoardArray() {
-	var boardArray= new Array();
+	var boardArray = new Array();
 
-	for (var i = 0; i<row; i++) {
-		boardArray[i]=new Array();
-		for (var j = 0; j < column; j++) {
+	for (var i = 0; i <column; i++) {
+		boardArray[i]= new Array();
+		for (var j = 0; j < row; j++) {
 		 	boardArray[i][j] = 0;
 		}
 	}
 	return boardArray;
 };
 
-// function printBoard(boardArray) {
-// 	for (i=0;i<row;i++) {
-// 		 for (j=0;j<column;j++) {
-// 		    var cellId = '#c' + i + j;
-// 		    debugger
-// 		    $(cellId).addClass('blue');
-// 		 }
-// 	}
-// };
-// printBoard(boardArray);
+function addPiece(col) {
+	for (var i = 0; i < column; i++) {
+
+	}
+};
 
 $( document ).ready(function() {
 
-	$('.cell').addEventListener = function(){
-		alert('ola');
-	};
+	$(".cell").click(
+        function(event){
+        	var cellId = event.target.id;
+            console.log(cellId.charAt(2));
+        }
+      )
+
+	initBoardArray();
 
 });
-
-var boardArray = initBoardArray();
-
