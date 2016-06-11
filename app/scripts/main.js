@@ -1,10 +1,12 @@
 var $ = require('jquery');
 var row = 6;
 var column = 7;
-// color red 1
-// color blue 2
+var totalMovesPossible = 42;
+var turnCounter = 0;
 var turn = 1;
 var boardArray = new Array();
+// color red 1
+// color blue 2
 
 function initBoardArray() {
 	for (var i = 0; i < row; i++) {
@@ -29,14 +31,19 @@ function addPiece(col) {
 };
 
 function changeTurn() {
-	if (turn === 1) {
-		turn = 2;
-		$('#turn').removeClass('turn--red');
-		$('#turn').addClass('turn--blue');
+	turnCounter++;
+	if (turnCounter < totalMovesPossible) {
+		if (turn === 1) {
+			turn = 2;
+			$('#turn').removeClass('turn--red');
+			$('#turn').addClass('turn--blue');
+		} else {
+			turn = 1;
+			$('#turn').removeClass('turn--blue');
+			$('#turn').addClass('turn--red');
+		}
 	} else {
-		turn = 1;
-		$('#turn').removeClass('turn--blue');
-		$('#turn').addClass('turn--red');
+		$('#turn').addClass('turn--hidden');
 	}
 }
 
