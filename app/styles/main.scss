@@ -6,30 +6,40 @@
         top: 5%;
     };
 }
+
 .table {
     max-width: 525px;
     margin: 0 auto;
+    background: grey;
 }
+
+td {
+    padding: 0!important;
+}
+
 .cell {
-    width: 75px;
     height: 75px;
     cursor: pointer;
-
-}
-
-.td {
     &:before {
         content: '';
+        width: 75px;
+        height: 75px;
         position: absolute;
+        background: white;
+        border-radius: 75px;
     }
 }
 
 .blue {
-    background-color: blue;
+    &:before{
+        background-color: blue;
+    }
 }
 
 .red {
-    background-color: red;
+    &:before {
+        background-color: red;
+    }
 }
 
 .turn{
@@ -40,4 +50,12 @@
     margin: 0 auto {
         bottom: 50px;
     };
+}
+
+.turn--blue {
+    background-color: blue;
+}
+
+.turn--red {
+    background-color: red;
 }

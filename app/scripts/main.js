@@ -31,12 +31,12 @@ function addPiece(col) {
 function changeTurn() {
 	if (turn === 1) {
 		turn = 2;
-		$('#turn').removeClass('red');
-		$('#turn').addClass('blue');
+		$('#turn').removeClass('turn--red');
+		$('#turn').addClass('turn--blue');
 	} else {
 		turn = 1;
-		$('#turn').removeClass('blue');
-		$('#turn').addClass('red');
+		$('#turn').removeClass('turn--blue');
+		$('#turn').addClass('turn--red');
 	}
 }
 
