@@ -1,13 +1,43 @@
 @import "vendor";
 
+.container-fluid {
+    width: 80%;
+    margin: 10% auto {
+        top: 5%;
+    };
+}
+.table {
+    max-width: 525px;
+    margin: 0 auto;
+}
 .cell {
     width: 75px;
     height: 75px;
     cursor: pointer;
+
 }
+
+.td {
+    &:before {
+        content: '';
+        position: absolute;
+    }
+}
+
 .blue {
     background-color: blue;
 }
+
 .red {
     background-color: red;
+}
+
+.turn{
+    color: white;
+    width: 100px;
+    line-height: 40px;
+    text-align: center;
+    margin: 0 auto {
+        bottom: 50px;
+    };
 }

@@ -7,10 +7,9 @@ var turn = 1;
 var boardArray = new Array();
 
 function initBoardArray() {
-
-	for (var i = 0; i <column; i++) {
+	for (var i = 0; i < row; i++) {
 		boardArray[i]= new Array();
-		for (var j = 0; j < row; j++) {
+		for (var j = 0; j < column; j++) {
 		 	boardArray[i][j] = 0;
 		}
 	}
@@ -30,8 +29,15 @@ function addPiece(col) {
 };
 
 function changeTurn() {
-	debugger
-	turn = turn === 1 ? 2 : 1;
+	if (turn === 1) {
+		turn = 2;
+		$('#turn').removeClass('red');
+		$('#turn').addClass('blue');
+	} else {
+		turn = 1;
+		$('#turn').removeClass('blue');
+		$('#turn').addClass('red');
+	}
 }
 
 $( document ).ready(function() {
@@ -41,7 +47,7 @@ $( document ).ready(function() {
         	var cellId = event.target.id;
             addPiece(cellId.charAt(2));
         }
-      )
+      );
 
 	initBoardArray();
 
