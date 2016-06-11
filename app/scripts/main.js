@@ -3,9 +3,10 @@ var row = 6;
 var column = 7;
 // color red 1
 // color blue 2
+var turn = 1;
+var boardArray = new Array();
 
 function initBoardArray() {
-	var boardArray = new Array();
 
 	for (var i = 0; i <column; i++) {
 		boardArray[i]= new Array();
@@ -13,21 +14,32 @@ function initBoardArray() {
 		 	boardArray[i][j] = 0;
 		}
 	}
-	return boardArray;
 };
 
 function addPiece(col) {
-	for (var i = 0; i < column; i++) {
-
+	for (var i = 0; i < row; i++) {
+		if (boardArray[i][col] === 0) {
+			boardArray[i][col] = turn;
+			var cellId = '#c' + i + col;
+			var color = turn === 1 ? 'red' : 'blue';
+			$(cellId).addClass(color);
+			changeTurn();
+			return;
+		}
 	}
 };
+
+function changeTurn() {
+	debugger
+	turn = turn === 1 ? 2 : 1;
+}
 
 $( document ).ready(function() {
 
 	$(".cell").click(
         function(event){
         	var cellId = event.target.id;
-            console.log(cellId.charAt(2));
+            addPiece(cellId.charAt(2));
         }
       )
 
