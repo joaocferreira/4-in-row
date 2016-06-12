@@ -24,8 +24,19 @@ function addPiece(col) {
 			var cellId = '#c' + i + col;
 			var color = turn === 1 ? 'red' : 'blue';
 			$(cellId).addClass(color);
-			changeTurn();
-			return;
+
+			if (isWinningBoard(boardArray, turn)) {
+				$(".cell").off('click' ,
+			        function(event){
+			        	var cellId = event.target.id;
+			            addPiece(cellId.charAt(2));
+			        });
+				alert("Player " + color + " wins");
+
+			} else {
+				changeTurn();
+				return;
+			}
 		}
 	}
 };
@@ -45,17 +56,144 @@ function changeTurn() {
 	} else {
 		$('#turn').addClass('turn--hidden');
 	}
+};
+
+function isWinningBoard(boardArrayToCheck, colorNumber) {
+	for (var y = 0; y<row; y++) {
+		for (var x = 0; x < column; x++) {
+		 	if (checkIfFourInRow(boardArrayToCheck, x, y, colorNumber))
+		 		return true;
+		}
+	}
+	return false;
+};
+
+function checkIfFourInRow(boardArrayToCheck, x, y, colorNumber) {
+	if (boardArrayToCheck[y][x] != colorNumber) return false;
+
+	var left = howManyLeft(boardArrayToCheck, x, y, colorNumber);
+	var right = howManyRight(boardArrayToCheck, x, y, colorNumber);
+	if ((left + right) == 3) return true;
+
+	var top = howManyTop(boardArrayToCheck, x, y, colorNumber);
+	var bottom = howManyBottom(boardArrayToCheck, x, y, colorNumber);
+	if ((top + right) == 3) return true;
+
+	var diagUpRight = howManyDiagonalUpRight(boardArrayToCheck, x, y, colorNumber);
+	var diagDownLeft = howManyDiagonalDownLeft(boardArrayToCheck, x, y, colorNumber);
+	if ((diagUpRight + diagDownLeft) == 3) return true;
+
+	var diagUpLeft = howManyDiagonalUpLeft(boardArrayToCheck, x, y, colorNumber);
+	var diagDownRight = howManyDiagonalDownRight(boardArrayToCheck, x, y, colorNumber);
+	if ((diagUpLeft + diagDownRight) == 3) return true;
+
+	return false;
+};
+
+
+function howManyLeft(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( x -i > 0  && i < 4)	{
+		if (boardArrayToCheck[y][x - i] == colorNumber) {
+			i++;
+		} else {
+			return (i-1);
+		}
+	};
+
+	return (i-1);
+};
+
+function howManyRight(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( x +i < column  && i < 4) {
+		if (boardArrayToCheck[y][x + i] == colorNumber) {
+			i++;
+		} else {
+			return (i-1);
+		}
+	};
+	return (i-1);
+};
+
+function howManyTop(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( y +i < row  && i < 4) {
+		if (boardArrayToCheck[y+i][x] == colorNumber) {
+			i++;
+		} else {
+			return (i-1)
+		}
+	};
+	return (i-1);
+};
+
+function howManyBottom(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( y - i > 0  && i < 4) {
+		if (boardArrayToCheck[y-i][x] == colorNumber) {
+			i++;
+		} else {
+			return (i-1);
+		}
+	};
+	return (i-1);
+};
+
+function howManyDiagonalUpRight(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( y +i < row  &&  x +i < column && i  < 4) {
+		if (boardArrayToCheck[y+i][x+i] == colorNumber) {
+			i++;
+		} else {
+			return (i-1);
+		}
+	};
+	return (i-1);
+};
+
+function howManyDiagonalDownLeft(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( y - i > 0  &&  x  - i > 0  && i  < 4) {
+		if (boardArrayToCheck[y-i][x-i] == colorNumber) {
+			i++;
+		} else {
+			return (i-1);
+		}
+	};
+	return (i-1);
 }
 
-$( document ).ready(function() {
+function howManyDiagonalUpLeft(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( y +i < row  &&  x -i > 0 && i  < 4)	{
+		if (boardArrayToCheck[y+i][x-i] == colorNumber) {
+			i++;
+		} else {
+			return (i-1)
+		}
+	};
+	return (i-1)
+};
 
-	$(".cell").click(
+function howManyDiagonalDownRight(boardArrayToCheck, x, y, colorNumber) {
+	var i = 1;
+	while ( y - i > 0  &&  x  + i < column && i  < 4) {
+		if (boardArrayToCheck[y-i][x+1] == colorNumber) {
+			i++;
+		} else {
+			return (i-1);
+		}
+	};
+	return (i-1)
+};
+
+$( document ).ready(function() {
+	$(".cell").on('click' ,
         function(event){
         	var cellId = event.target.id;
             addPiece(cellId.charAt(2));
-        }
-      );
+        });
 
 	initBoardArray();
-
 });
